@@ -3,6 +3,7 @@ package nextstep.helloworld.jdbc.jdbctemplate;
 import nextstep.helloworld.jdbc.Customer;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,7 +30,8 @@ public class QueryingDAO {
      */
     public int count() {
         String sql = "select count(*) from customers";
-        return 0;
+
+        return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
     /**
@@ -37,7 +39,8 @@ public class QueryingDAO {
      */
     public String getLastName(Long id) {
         String sql = "select last_name from customers where id = ?";
-        return null;
+
+        return jdbcTemplate.queryForObject(sql, String.class, id);
     }
 
     /**
@@ -45,7 +48,7 @@ public class QueryingDAO {
      */
     public Customer findCustomerById(Long id) {
         String sql = "select id, first_name, last_name from customers where id = ?";
-        return null;
+        return jdbcTemplate.queryForObject(sql, actorRowMapper, id);
     }
 
     /**
@@ -53,7 +56,7 @@ public class QueryingDAO {
      */
     public List<Customer> findAllCustomers() {
         String sql = "select id, first_name, last_name from customers";
-        return null;
+        return jdbcTemplate.query(sql, actorRowMapper);
     }
 
     /**
@@ -61,6 +64,6 @@ public class QueryingDAO {
      */
     public List<Customer> findCustomerByFirstName(String firstName) {
         String sql = "select id, first_name, last_name from customers where first_name = ?";
-        return null;
+        return jdbcTemplate.query(sql, actorRowMapper, firstName);
     }
 }

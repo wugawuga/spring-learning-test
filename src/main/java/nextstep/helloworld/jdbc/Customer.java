@@ -26,4 +26,8 @@ public class Customer {
     public String getLastName() {
         return lastName;
     }
+
+    public void setId(final long longValue) {
+        this.id = longValue;
+    }
 }
