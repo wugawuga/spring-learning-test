@@ -2,6 +2,7 @@ package nextstep.helloworld.mvc.handler;
 
 import nextstep.helloworld.mvc.domain.User;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.StreamingHttpOutputMessage.Body;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,23 +11,33 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/return-value")
 public class ReturnValueController {
 
-//    public void string() {
-//        return "message";
-//    }
-//
-//    public void responseBodyForUser() {
-//        return new User("name", "email");
-//    }
-//
-//    public void responseEntity(@PathVariable Long id) {
-//        return ResponseEntity.ok(new User("name", "email"));
-//    }
-//
-//    public void responseEntityFor400() {
-//        return ResponseEntity.badRequest().build();
-//    }
-//
-//    public void thymeleaf() {
-//        return "sample";
-//    }
+    @RequestMapping("/message")
+    @ResponseBody
+    public String string() {
+        return "message";
+    }
+
+    @RequestMapping("/thymeleaf")
+    public String thymeleaf() {
+        return "sample";
+    }
+
+    @RequestMapping("/users")
+    @ResponseBody
+    public User responseBodyForUser() {
+        return new User("name", "email");
+    }
+
+    @RequestMapping("/users/{id}")
+    @ResponseBody
+    public ResponseEntity responseEntity(@PathVariable Long id) {
+        return ResponseEntity.ok(new User("name", "email"));
+    }
+
+    @RequestMapping("/members")
+    @ResponseBody
+    public ResponseEntity responseEntityFor400() {
+        return ResponseEntity.badRequest().build();
+    }
+
 }
